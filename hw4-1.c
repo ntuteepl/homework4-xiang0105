@@ -8,7 +8,7 @@ main ()
 
   scanf ("%d", &inp);
 
-  int list[10];
+  int list[10000];
 
   for (int i = 0; i < inp; i++)
     {
