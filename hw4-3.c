@@ -3,47 +3,53 @@
 int
 main ()
 {
-     int total = 1, list[10], num , drive1[10] , drive2[10] , drive3[10];
-
-      for (int i = 0; i < 6; i++){
-         scanf ("%d", &num);
-         list[i] = num;
-      }
-
-      drive1[0] = list[0];
-      drive1[1] = list[1];
-
-      if (list[1] > list[2]){
-          total += 1;
-          drive2[0] = list[2];
-          drive2[1] = list[3];
-      }else{
-          drive1[2] = list[2];
-          drive1[3] = list[3];
-      }
-
-
-      if (list[3] > list[4] && list[1] > list[4]){
-          total += 1;
-          drive3[0] = list[4];
-          drive3[1] = list[5];
-      }else if(list[1] < list[4]){
-          drive1[4] = list[4];
-          drive1[5] = list[5];
-      }else if(list[3] < list[4]){
-          drive2[2] = list[4];
-          drive2[3] = list[5];
-      }
-
-      if(total == 2){
-          printf("%d\n" , total);
-          printf("Driver 1's schedule is %d %d %d %d\n" , drive1[0] , drive1[1] , drive1[4] , drive1[5]);
-          printf("Driver 2's schedule is %d %d\n" , drive2[0] , drive2[1]);
-      }else{
-          printf("%d\n" , total);
-          printf("Driver 1's schedule is %d %d\n" , drive1[0] , drive1[1]);
-          printf("Driver 2's schedule is %d %d\n" , drive2[0] , drive2[1]);
-          printf("Driver 3's schedule is %d %d\n" , drive3[0] , drive3[1]);
-      }
+     int n , inp , total = 1 , watch = 1 , star = 0;
+   
+   scanf("%d" , &n);
+   
+   int list[n*2] , drive[n][n*2];
+   
+   for(int i = 0 ; i < n * 2 ; i++){
+       scanf("%d" , &inp);
+        list[i] = inp;
+       
+   }
+   
+   for(int i = 0 ; i < n * 2 ; i += 2){
+       
+       if(total != watch && list[i-1] > list[i+2]){
+           drive[star + (n - 1)][i] = list[i];
+           drive[star + (n - 1)][i + 1] = list[i + 1];
+           watch = total;
+       }else if(total != watch){
+           drive[star + (n-2)][i] = list[i];
+           drive[star + (n-2)][i + 1] = list[i + 1];
+           watch = total;
+       }else{
+           drive[star][i] = list[i];
+           drive[star][i + 1] = list[i + 1];
+       }
+       
+       if(list[i+1] > list[i+2] && i == 0){
+           total += 1 ;
+       }
+       if(list[i+1] > list[i+2] && list[i-1] > list[i+2] && i > 1){
+           total += 1;
+       }
+       
+       
+   }
+   
+   printf("%d\n" , total);
+   
+   for(int i = 0 ; i < total ; i++){
+           printf("Driver %d's schedule is " , i);
+       for(int j = 0 ; j < n * 2 ; j++){
+           if(drive[i][j] != 0 ){
+               printf("%d " , drive[i][j]);
+           }
+       }
+           printf("\n");
+   }
 
 }
