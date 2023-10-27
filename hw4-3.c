@@ -5,7 +5,7 @@ int main ()
    int n , inp , total = 1 , temp[ARRAYSIZE];
     
    scanf("%d" , &n); 
-   
+    
    int list[ARRAYSIZE] , drive[n][ARRAYSIZE];
    
    for(int i = 0 ; i < n * 2 ; i++){
