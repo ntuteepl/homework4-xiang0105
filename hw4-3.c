@@ -51,6 +51,8 @@ int main ()
           if(drive[i][0] < list[g] && drive[i][0] != 0){
             drive[i+1][0] = list[g];
             drive[i+1][1] = list[g+1];
+            list[g] = 0 ;
+            list[g+1] = 0;
             total += 1;
             break;
           }
