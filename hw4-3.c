@@ -62,7 +62,7 @@ int main ()
   printf("%d\n" , total);
    
   for(int i = 0 ; i < total ; i++){
-          printf("Driver %d's schedule is " , i + 1);
+          printf("Driver %d's schedule is ", i + 1);
       for(int j = 0 ; j < n * 2 ; j++){
           if(drive[i][j] != 0 ){
               printf("%d " , drive[i][j]);
