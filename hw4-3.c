@@ -1,11 +1,11 @@
 #include <stdio.h>
 int main ()
 {
-   int n , inp , total = 1 , temp[10000];
+   int n , inp , total = 1 , temp[1000];
    
    scanf("%d" , &n);
    
-   int list[1000] , drive[n][1000];
+   int list[10000] , drive[n][10000];
    
    for(int i = 0 ; i < n * 2 ; i++){
        scanf("%d" , &inp);
@@ -39,6 +39,14 @@ int main ()
           }
       }
       for(int g = 0 ; g < n * 2 ; g+=2){
+          if(drive[i][0] == list[g] && drive[i][1] != list[g+1]){
+            drive[i+1][0] = list[g];
+            drive[i+1][1] = list[g+1];
+            list[g] = 0 ;
+            list[g+1] = 0;
+            total += 1;
+            break;
+          }
           if(drive[i][0] < list[g] && drive[i][0] != 0){
             drive[i+1][0] = list[g];
             drive[i+1][1] = list[g+1];
@@ -60,5 +68,5 @@ int main ()
           printf("\n");
   }
     
-
+    return 0;
 }
