@@ -1,6 +1,6 @@
 #include <stdio.h>
 #define ARRAYSIZE 10000
-int main ()
+int main () 
 {
    int n , inp , total = 1 , temp[ARRAYSIZE];
     
