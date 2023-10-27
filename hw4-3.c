@@ -36,7 +36,7 @@ int main ()
               drive[i][x + 2] = list[j+1];
               list[j] = 0 ;
               list[j+1] = 0;
-              x += 2;
+              x += 3;
           }
       }
       for(int g = 0 ; g < n * 2 ; g+=2){
