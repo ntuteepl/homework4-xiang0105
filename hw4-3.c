@@ -1,11 +1,12 @@
 #include <stdio.h>
+#define ARRAYSIZE 10000
 int main ()
 {
-   int n , inp , total = 1 , temp[1000];
+   int n , inp , total = 1 , temp[ARRAYSIZE];
    
    scanf("%d" , &n);
    
-   int list[10000] , drive[n][10000];
+   int list[ARRAYSIZE] , drive[n][ARRAYSIZE];
    
    for(int i = 0 ; i < n * 2 ; i++){
        scanf("%d" , &inp);
@@ -35,7 +36,7 @@ int main ()
               drive[i][x + 2] = list[j+1];
               list[j] = 0 ;
               list[j+1] = 0;
-              x += 3;
+              x += 2;
           }
       }
       for(int g = 0 ; g < n * 2 ; g+=2){
