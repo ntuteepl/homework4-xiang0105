@@ -1,94 +1,52 @@
 #include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h> 
 
-int
-main ()
-{
-    int inp ,num1 , num2 , num3;
+#define MAX_N 10
 
-    scanf("%d" , &inp);
+typedef struct {
+    int boy;
+    int girl;
+    int score;
+} Couple;
 
-    int list[inp] , sex[inp];
+int compare(const void *a, const void *b) {
+    return ((Couple *)b)->score - ((Couple *)a)->score;
+}
 
-    if(inp == 3){
-        for(int i = 0 ; i < inp ; i++){
-            scanf("%d %d %d", &num1 , &num2 , &num3);
+int main() {
+    int n;
+    scanf("%d", &n);
 
-            if(num1 > num2 && num1 > num3){
-                list[i] = num1;
-                sex[i] = 1;
-            }else if(num2 > num1 && num2 > num3){
-                list[i] = num2;
-                sex[i] = 2;
-            }else{
-                list[i] == num3;
-                sex[i] = 3;
-            }
-        }
+    int scores[MAX_N][MAX_N];
+    Couple couples[MAX_N * MAX_N];
 
-        if(list[0] > list[1] && list[0] > list[2]){
-            printf("boy 1 pair with girl %d\n" , sex[0]);
-            if(list[1] > list[2]){
-                printf("boy 2 pair with girl %d\n" , sex[1]);
-                printf("boy 3 pair with girl %d\n" , 6 - sex[0] - sex[1]);
-            }else{
-                printf("boy 3 pair with girl %d\n" , sex[2]);
-                printf("boy 2 pair with girl %d\n" , 6 - sex[0] - sex[2]);
-            }
-        }
-        if(list[1] > list[0] && list[1] > list[2]){
-            printf("boy 2 pair with girl %d\n" , sex[1]);
-            if(list[0] > list[2]){
-                printf("boy 1 pair with girl %d\n" , sex[0]);
-                printf("boy 3 pair with girl %d\n" , 6 - sex[0] - sex[1]);
-            }else{
-                printf("boy 3 pair with girl %d\n" , sex[2]);
-                printf("boy 1 pair with girl %d\n" , 6 - sex[1] - sex[2]);
-            }
-        }
-        if(list[2] > list[1] && list[2] > list[1]){
-            printf("boy 1 pair with girl %d\n" , sex[2]);
-            if(list[1] > list[0]){
-                printf("boy 2 pair with girl %d\n" , sex[1]);
-                printf("boy 1 pair with girl %d\n" , 6 - sex[1] - sex[2]);
-            }else{
-                printf("boy 1 pair with girl %d\n" , sex[0]);
-                printf("boy 2 pair with girl %d\n" , 6 - sex[0] - sex[2]);
-            }
-        }
-
-    }
-
-    if(inp == 2){
-        for(int i = 0 ; i < inp ; i++){
-            scanf("%d %d" , &num1 , &num2);
-            if(num1 > num2){
-                list[i] = num1;
-                sex[i] = 1;
-            }else{
-                list[i] = num2;
-                sex[i] = 2;
-            }
-        }
-
-        if(list[0] > list[1] && sex[0] == 1){
-            printf("boy 1 pair with girl 1\n");
-            printf("boy 2 pair with girl 2\n");
-        }
-
-        if(list[0] > list[1] && sex[0] == 2){
-            printf("boy 1 pair with girl 2\n");
-            printf("boy 2 pair with girl 1\n");
-        }
-
-        if(list[0] < list[1] && sex[1] == 1){
-            printf("boy 2 pair with girl 1\n");
-            printf("boy 1 pair with girl 2\n");
-        }
-
-        if(list[0] < list[1] && sex[1] == 2){
-            printf("boy 2 pair with girl 2\n");
-            printf("boy 1 pair with girl 1\n");
+    // Read input
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            scanf("%d", &scores[i][j]);
+            couples[i * n + j].boy = i + 1;
+            couples[i * n + j].girl = j + 1;
+            couples[i * n + j].score = scores[i][j];
         }
     }
 
+    // Sort the couples by score
+    qsort(couples, n * n, sizeof(Couple), compare);
+
+    bool boys_paired[MAX_N] = {false};
+    bool girls_paired[MAX_N] = {false};
+
+    // Pair boys with girls
+    for (int i = 0; i < n * n; i++) {
+        int boy = couples[i].boy - 1;
+        int girl = couples[i].girl - 1;
+        if (!boys_paired[boy] && !girls_paired[girl]) {
+            boys_paired[boy] = true;
+            girls_paired[girl] = true;
+            printf("boy %d pair with girl %d\n", boy + 1, girl + 1);
+        }
+    }
+
+    return 0;
 }
